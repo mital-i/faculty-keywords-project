@@ -1,13 +1,5 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
-import spacy
-import en_core_web_sm
-
-#api key: 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
-
-nlp = spacy.load("en_core_web_sm")
-nlp = en_core_web_sm.load()
-
 #open excel spreadsheet
 df = pd.read_excel("Research keywords - 2024.01.10.xlsx")
 

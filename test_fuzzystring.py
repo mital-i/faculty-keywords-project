@@ -18,30 +18,30 @@ for i in range(df.shape[0]):
     professor_name = df.iloc[i].tolist()[0]
     professors[professor_name] = keywords
 
-name = "Kurtis Pykes"
-full_name = "Kurtis K D Pykes"
-
-word1 = "Down Syndrome"
-word2 = "Dementia"
-
-key1 = ['microbes', 'soil', 'climate change', 'fungi', 'biogeochemistry', 'ecosystem', 'ecology', 'science communication', 'science policy']
-key2 = ['human microbiome', 'metabolomics', 'next generation sequencing', 'microbial ecology', 'clinical microbiology', 'phage therapy', 'virome', 'cystic fibrosis', 'wastewater surveillance', 'Alzheimers Disease', 'dietary intervention', 'fiber', 'health', 'cancer treatment', 'microbiome', 'biomarkers', 'diagnostics', 'longitudinal studies', 'random forest', 'team science', 'clinical translational science', 'preterm birth', 'anaerobic cultivation', 'bioinformatics consulting', 'volatiles', 'breath', 'gas chromatography mass spec']
-
-print(f"Similarity score: {fuzz.ratio(key1[0], key2[0])}")
-
 def find_similarity_score(keywords1, keywords2): 
     ratio = 1
-    curr_ratio = 1
-    num_words = len(keywords1) * len(keywords2)
-    print(num_words)
+    #num_words = len(keywords1) * len(keywords2)
     for i in keywords1: 
         for j in keywords2: 
             if (i!=j):
-                if (fuzz.ratio(i, j)!=0): 
+                if (fuzz.ratio(i, j)>=30): 
                     ratio *= fuzz.ratio(i, j)
                     ratio = math.sqrt(ratio)
-                    print(ratio, i, j)
     return ratio
 
+print("Enter your last name: ")
+full_name = input()
+print("Enter your first name: ")
+full_name += ", " + input()
+print(full_name)
 
-print(find_similarity_score(key1, key2))
+keywords1 = professors[full_name]
+nump= 0
+for prof2, keywords2 in professors.items(): 
+    curr_ratio = find_similarity_score(keywords1, keywords2)
+    if (curr_ratio >= 40 and full_name!=prof2): 
+        nump+=1
+        print(f"{full_name} and {prof2} are likely to work together: {find_similarity_score(keywords1, keywords2)}")
+        print(nump)
+
+print(f"Total number of possible collaborators: {nump}")

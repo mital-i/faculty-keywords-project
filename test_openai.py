@@ -21,3 +21,20 @@ for i in range(df.shape[0]):
     professors[professor_name] = keywords
 
 print(professors)
+
+completion = client.chat.completions.create(
+  model="gpt-3.5-turbo",
+  messages=[
+    {"role": "system", "content": "You are a helpful assistant."},
+    {"role": "user", "content": "Hello!"}
+  ]
+)
+print(completion.choices[0].message)
+
+
+
+for profa, keywordsa in professors.items(): 
+    for profb, keywordsb in professors.items(): 
+        if (profa!=profb): 
+            prompt = f"Match professors based on keywords:\n\n{profa} - {keywordsa}\n{profb} - {keywordsb}\n\nSimilarity Score: "
+            

@@ -45,7 +45,7 @@ nump= 0
 for prof2, keywords2 in professors.items(): 
     curr_ratio = find_similarity_score(keywords1, keywords2)
     t_ten = heapq.nlargest(10, curr_ratio)
-    if (sum(t_ten)/10) >= 45 and full_name!=prof2: 
+    if (sum(t_ten)/10) >= 48 and full_name!=prof2: 
         print(f"{full_name} would work well with {prof2}: {sum(t_ten)/10}")
         nump+=1
 

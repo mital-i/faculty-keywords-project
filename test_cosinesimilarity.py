@@ -1,4 +1,18 @@
 import pandas as pd
+import sent2vec
+from nltk import word_tokenize
+from nltk.corpus import stopwords
+from string import punctuation
+from scipy.spatial import distance
+
+model_path = "/Users/mitalimittal/Downloads"
+model = sent2vec.Sent2vecModel()
+try:
+    model.load_model(model_path)
+except Exception as e:
+    print(e)
+print('model successfully loaded')
+
 
 df = pd.read_excel("Research keywords - 2024.01.10.xlsx") #open excel spreadsheet
 

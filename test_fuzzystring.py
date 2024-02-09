@@ -1,6 +1,6 @@
 import pandas as pd
 from thefuzz import fuzz
-import math
+import heapq
 
 #open excel spreadsheet
 df = pd.read_excel("Research keywords - 2024.01.10.xlsx")
@@ -19,15 +19,16 @@ for i in range(df.shape[0]):
     professors[professor_name] = keywords
 
 def find_similarity_score(keywords1, keywords2): 
-    ratio = 1
+    ratio = []
+    heapq.heapify(ratio)
     #num_words = len(keywords1) * len(keywords2)
     for i in keywords1: 
         for j in keywords2: 
             if (i!=j):
                 if (fuzz.ratio(i, j)>=30): 
-                    ratio *= fuzz.ratio(i, j)
-                    ratio = math.sqrt(ratio)
-    return ratio
+                    heapq.heappush(ratio, fuzz.ratio(i, j))
+
+    return list(ratio)
 
 print("Enter your last name: ")
 full_name = input()
@@ -36,12 +37,17 @@ full_name += ", " + input()
 print(full_name)
 
 keywords1 = professors[full_name]
+prof2 = "LaFerla, Frank"
+keywords2 = professors[prof2]
 nump= 0
+
+
 for prof2, keywords2 in professors.items(): 
     curr_ratio = find_similarity_score(keywords1, keywords2)
-    if (curr_ratio >= 40 and full_name!=prof2): 
+    t_ten = heapq.nlargest(10, curr_ratio)
+    if (sum(t_ten)/10) >= 45 and full_name!=prof2: 
+        print(f"{full_name} would work well with {prof2}: {sum(t_ten)/10}")
         nump+=1
-        print(f"{full_name} and {prof2} are likely to work together: {find_similarity_score(keywords1, keywords2)}")
-        print(nump)
+
 
 print(f"Total number of possible collaborators: {nump}")

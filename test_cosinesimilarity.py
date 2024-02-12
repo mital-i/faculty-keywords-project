@@ -1,20 +1,14 @@
 import pandas as pd
-import sent2vec
-from nltk import word_tokenize
-from nltk.corpus import stopwords
-from string import punctuation
-from scipy.spatial import distance
-
-model_path = "/Users/mitalimittal/Downloads"
-model = sent2vec.Sent2vecModel()
-try:
-    model.load_model(model_path)
-except Exception as e:
-    print(e)
-print('model successfully loaded')
+from gensim.models import Word2Vec
+from collections import defaultdict
+import spacy
+import logging
 
 
 df = pd.read_excel("Research keywords - 2024.01.10.xlsx") #open excel spreadsheet
+
+model_name = "BioWordVec_PubMed_MIMICIII_d200.vec.bin"
+model = Word2Vec.load("/Users/mitalimittal/Downloads/BioWordVec_PubMed_MIMICIII_d200.vec.bin")
 
 #convert keywords in each row into a list
 def make_keywords_list(df, row_index): 
@@ -33,3 +27,5 @@ for i in range(df.shape[0]):
     professor_name = df.iloc[i].tolist()[0]
     professors[professor_name] = keywords
 
+prof1 = 'Yassa, Michael'
+keywords1 = professors[prof1]

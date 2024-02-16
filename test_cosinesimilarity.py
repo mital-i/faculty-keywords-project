@@ -24,6 +24,11 @@ df = pd.read_excel("Research keywords - 2024.01.10.xlsx") #open excel spreadshee
 def make_keywords_list(df, row_index): 
     row_values = df.iloc[row_index].tolist()
     row_values = row_values[6].split("; ")
+    for i in range(len(row_values)): 
+        if len(row_values[i].split())>1: 
+            temp = row_values[i].split()
+            temp = temp[0]+"_"+temp[1]
+            row_values[i]=temp
     return row_values
 
 def find_similarity_score(keywords1, keywords2): 
@@ -57,7 +62,7 @@ print(sum(find_similarity_score(keywords1, keywords2))/10)
 
 for prof2, keywords2 in professors.items(): 
     curr_ratio = find_similarity_score(keywords1, keywords2)
-    if (sum(curr_ratio)/10) >= 0.4 and full_name!=prof2: 
+    if (sum(curr_ratio)/10) >= 0.45 and full_name!=prof2: 
         print(f"{full_name} would work well with {prof2}: {sum(curr_ratio)/10}")
         nump+=1
 

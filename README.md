@@ -12,12 +12,5 @@ Make sure you have the write packages installed before running the program. I ha
 
 After you have these installed, run the program. The program has "Yassa, Michael" as the sample input however you may change that to the name of any professor you would like to look for. Make sure it is in the format Last Name, First Name. The program will give you a list of potential collaborators as well as the total number of potential collaborators. 
 
-# Problem: 
-
 # Learnings: 
-
-# What makes it stand out: 
-
-# Credits: 
-
-# License: 
+During the development of this project, I started by first attempting to the Open AI API in order to do the job for me, however I quickly ran into the token and request limit. I switched gears to use the Gemini API however it wasn't as refined at the Open AI API and I had the same limit issue. I researched vectorization and cosine similarity which seemed like the most reliable method. 

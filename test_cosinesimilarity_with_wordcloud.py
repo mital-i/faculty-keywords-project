@@ -33,6 +33,7 @@ def find_similarity_score(keywords1, keywords2):
         for j in range(len(keywords2)): 
             if (keywords1[i]!=keywords2[j]) and (keywords1[i] in wv_from_bin.key_to_index) and (keywords2[j] in wv_from_bin.key_to_index):
                 vector1 = wv_from_bin[list(keywords1[i].split())[0]]
+                print(vector1)
                 vector2 = wv_from_bin[list(keywords2[j].split())[0]]
                 heapq.heappush(score_heap, np.dot(vector1, vector2)/ (norm(vector1)*norm(vector2)))
 
